@@ -7,12 +7,14 @@ class TestRoom(unittest.TestCase):
     
     def setUp(self):
 
-        self.room = Room("Room 1", 6, 0)
-        self.room_full = Room("Room 2", 6, 6)
+        self.room = Room("Room 1", 6, 0, 10)
+        self.room_full = Room("Room 2", 6, 6, 10)
+
         self.song = Song("Black Sabbath", "Paranoid")
+
         self.guest_rich = Guest(100)
         self.guest_poor = Guest(5)
-
+        
     def test_room_has_name(self):
         self.assertEqual("Room 1", self.room.name)
 
@@ -27,3 +29,11 @@ class TestRoom(unittest.TestCase):
     def test_add_guest_room_full(self):
         self.room_full.add_guest(self.guest_rich)
         self.assertEqual(6, 6)
+
+    def test_add_rich_guest(self):
+        self.room.add_guest(self.guest_rich)
+        self.assertEqual(90, self.guest_rich.cash)
+
+    def test_add_poor_guest(self):
+        self.room.add_guest(self.guest_poor)
+        self.assertEqual(5, self.guest_poor.cash)
